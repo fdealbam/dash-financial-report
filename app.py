@@ -6,8 +6,6 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 
-from components import Header, make_dash_table
-
 import pandas as pd
 
 app = dash.Dash(__name__)
@@ -29,6 +27,69 @@ df_dividend = pd.read_csv('data/df_dividend.csv')
 df_realized = pd.read_csv('data/df_realized.csv')
 df_unrealized = pd.read_csv('data/df_unrealized.csv')
 df_graph = pd.read_csv("data/df_graph.csv")
+
+def Header():
+    return html.Div([
+        get_logo(),
+        get_header(),
+        html.Br([]),
+        get_menu()
+    ])
+
+def get_logo():
+    logo = html.Div([
+
+        html.Div([
+            html.Img(src=app.get_asset_url('Logo.png'), height='40px')
+        ], className="ten columns padded"),
+
+        html.Div([
+            dcc.Link('Full View   ', href='/dash-financial-report/full-view')
+        ], className="two columns page-view no-print")
+
+    ], className="row gs-header")
+    return logo
+
+
+def get_header():
+    header = html.Div([
+
+        html.Div([
+            html.H5(
+                '500 Index Fund Investor Shares')
+        ], className="twelve columns padded")
+
+    ], className="row gs-header gs-text-header")
+    return header
+
+
+def get_menu():
+    menu = html.Div([
+
+        dcc.Link('Overview   ', href='/dash-financial-report/overview', className="tab first"),
+
+        dcc.Link('Price Performance   ', href='/dash-financial-report/price-performance', className="tab"),
+
+        dcc.Link('Portfolio & Management   ', href='/dash-financial-report/portfolio-management', className="tab"),
+
+        dcc.Link('Fees & Minimums   ', href='/dash-financial-report/fees', className="tab"),
+
+        dcc.Link('Distributions   ', href='/dash-financial-report/distributions', className="tab"),
+
+        dcc.Link('News & Reviews   ', href='/dash-financial-report/news-and-reviews', className="tab")
+
+    ], className="row ")
+    return menu
+
+def make_dash_table(df):
+    ''' Return a dash definition of an HTML table for a Pandas dataframe '''
+    table = []
+    for index, row in df.iterrows():
+        html_row = []
+        for i in range(len(row)):
+            html_row.append(html.Td([row[i]]))
+        table.append(html.Tr(html_row))
+    return table
 
 ## Page layouts
 overview = html.Div([  # page 1
@@ -442,10 +503,10 @@ pricePerformance = html.Div([  # page 2
                             'data': [
                                 go.Scatter(
                                     x = df_graph['Date'],
-                                    y = df_graph['Vanguard 500 Index Fund'],
+                                    y = df_graph['500 Index Fund'],
                                     line = {"color": "rgb(53, 83, 255)"},
                                     mode = "lines",
-                                    name = "Vanguard 500 Index Fund"
+                                    name = "500 Index Fund"
                                 ),
                                 go.Scatter(
                                     x = df_graph['Date'],
@@ -812,8 +873,8 @@ portfolioManagement = html.Div([ # page 3
                 ], className="four columns"),
 
                 html.Div([
-                    html.P("Vanguard 500 Index Fund seeks to track the performance of\
-                     a benchmark index that meaures the investment return of large-capitalization stocks."),
+                    html.P("500 Index Fund seeks to track the performance of\
+                     a benchmark index that measures the investment return of large-capitalization stocks."),
                     html.P("Learn more about this portfolio's investment strategy and policy.")
                 ], className="eight columns middle-aligned"),
 
@@ -1046,16 +1107,16 @@ feesMins = html.Div([  # page 4
 
                         html.Div([
                             html.Strong(["Nonretirement accounts, traditional IRAs, Roth IRAs, UGMAs/UTMAs, SEP-IRAs, and education savings accounts (ESAs)"]),
-                            html.P(["We charge a $20 annual account service fee for each Vanguard Brokerage Account, as well as each individual Vanguard mutual fund holding with a balance of less than $10,000 in an account. This fee does not apply if you sign up for account access on vanguard.com and choose electronic delivery of statements, confirmations, and Vanguard fund reports and prospectuses. This fee also does not apply to members of Flagship Select™, Flagship®, Voyager Select®, and Voyager® Services."]),
+                            html.P(["We charge a $20 annual account service fee for each Brokerage Account, as well as each individual mutual fund holding with a balance of less than $10,000 in an account. This fee does not apply if you sign up for account and choose electronic delivery of statements, confirmations, and fund reports and prospectuses. This fee also does not apply to members of Flagship Select™, Flagship®, Voyager Select®, and Voyager® Services."]),
                             html.Br([]),
                             html.Strong(["SIMPLE IRAs"]),
-                            html.P(["We charge participants a $25 annual account service fee for each fund they hold in their Vanguard SIMPLE IRA. This fee does not apply to members of Flagship Select, Flagship, Voyager Select, and Voyager Services."]),
+                            html.P(["We charge participants a $25 annual account service fee for each fund they hold in their SIMPLE IRA. This fee does not apply to members of Flagship Select, Flagship, Voyager Select, and Voyager Services."]),
                             html.Br([]),
                             html.Strong(["403(b)(7) plans"]),
-                            html.P(["We charge participants a $15 annual account service fee for each fund they hold in their Vanguard 403(b)(7) account. This fee does not apply to members of Flagship Select, Flagship, Voyager Select, and Voyager Services."]),
+                            html.P(["We charge participants a $15 annual account service fee for each fund they hold in their 403(b)(7) account. This fee does not apply to members of Flagship Select, Flagship, Voyager Select, and Voyager Services."]),
                             html.Br([]),
                             html.Strong(["Individual 401(k) plans"]),
-                            html.P(["We charge participants a $20 annual account service fee for each fund they hold in their Vanguard Individual 401(k) account. This fee will be waived for all participants in the plan if at least 1 participant qualifies for Flagship Select, Flagship, Voyager Select, and Voyager Services"]),
+                            html.P(["We charge participants a $20 annual account service fee for each fund they hold in their Individual 401(k) account. This fee will be waived for all participants in the plan if at least 1 participant qualifies for Flagship Select, Flagship, Voyager Select, and Voyager Services"]),
                             html.Br([]),
                         ], className="nine columns")
 
@@ -1140,7 +1201,7 @@ newsReviews = html.Div([  # page 6
             html.Div([
 
                 html.Div([
-                    html.H6('Vanguard News',
+                    html.H6('News',
                             className="gs-header gs-text-header padded"),
                     html.Br([]),
                     html.P('10/25/16    The rise of indexing and the fall of costs'),
@@ -1154,9 +1215,9 @@ newsReviews = html.Div([  # page 6
                     html.Br([]),
                     html.Li('Launched in 1976.'),
                     html.Li('On average, has historically produced returns that have far outpaced the rate of inflation.*'),
-                    html.Li("Vanguard Quantitative Equity Group, the fund's advisor, is among the world's largest equity index managers."),
+                    html.Li("Quantitative Equity Group, the fund's advisor, is among the world's largest equity index managers."),
                     html.Br([]),
-                    html.P("Did you know? The fund launched in 1976 as Vanguard First Index Investment Trust—the nation's first index fund available to individual investors."),
+                    html.P("Did you know? The fund launched in 1976 as First Index Investment Trust—the nation's first index fund available to individual investors."),
                     html.Br([]),
                     html.P("* The performance of an index is not an exact representation of any particular investment, as you cannot invest directly in an index."),
                     html.Br([]),
@@ -1184,19 +1245,19 @@ app.layout = html.Div([
 @app.callback(dash.dependencies.Output('page-content', 'children'),
               [dash.dependencies.Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/dash-vanguard-report' or pathname == '/' or pathname == '/dash-vanguard-report/overview':
+    if pathname == '/dash-financial-report' or pathname == '/' or pathname == '/dash-financial-report/overview':
         return overview
-    elif pathname == '/dash-vanguard-report/price-performance':
+    elif pathname == '/dash-financial-report/price-performance':
         return pricePerformance
-    elif pathname == '/dash-vanguard-report/portfolio-management':
+    elif pathname == '/dash-financial-report/portfolio-management':
         return portfolioManagement
-    elif pathname == '/dash-vanguard-report/fees':
+    elif pathname == '/dash-financial-report/fees':
         return feesMins
-    elif pathname == '/dash-vanguard-report/distributions':
+    elif pathname == '/dash-financial-report/distributions':
         return distributions
-    elif pathname == '/dash-vanguard-report/news-and-reviews':
+    elif pathname == '/dash-financial-report/news-and-reviews':
         return newsReviews
-    elif pathname == '/dash-vanguard-report/full-view':
+    elif pathname == '/dash-financial-report/full-view':
         return overview,pricePerformance,portfolioManagement,feesMins,distributions,newsReviews
     else:
         return overview
