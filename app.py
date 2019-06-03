@@ -6,7 +6,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 
-from components import Header, make_dash_table, print_button
+from components import Header, make_dash_table
 
 import pandas as pd
 
@@ -33,7 +33,6 @@ df_graph = pd.read_csv("data/df_graph.csv")
 ## Page layouts
 overview = html.Div([  # page 1
 
-        print_button(),
 
         html.Div([
             Header(),
@@ -407,7 +406,6 @@ overview = html.Div([  # page 1
 
 pricePerformance = html.Div([  # page 2
 
-        print_button(),
 
         html.Div([
             Header(),
@@ -569,7 +567,6 @@ pricePerformance = html.Div([  # page 2
 
 portfolioManagement = html.Div([ # page 3
 
-        print_button(),
 
         html.Div([
 
@@ -852,7 +849,6 @@ portfolioManagement = html.Div([ # page 3
 
 feesMins = html.Div([  # page 4
 
-        print_button(),
 
         html.Div([
 
@@ -1075,7 +1071,6 @@ feesMins = html.Div([  # page 4
 
 distributions = html.Div([  # page 5
 
-        print_button(),
 
         html.Div([
 
@@ -1135,7 +1130,6 @@ distributions = html.Div([  # page 5
 
 newsReviews = html.Div([  # page 6
 
-        print_button(),
 
         html.Div([
 
@@ -1175,12 +1169,6 @@ newsReviews = html.Div([  # page 6
 
     ], className="page")
 
-noPage = html.Div([  # 404
-
-    html.P(["404 Page not found"])
-
-    ], className="no-page")
-
 
 
 # Describe the layout, or the UI, of the app
@@ -1196,7 +1184,7 @@ app.layout = html.Div([
 @app.callback(dash.dependencies.Output('page-content', 'children'),
               [dash.dependencies.Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/dash-vanguard-report' or pathname == '/dash-vanguard-report/overview':
+    if pathname == '/dash-vanguard-report' or pathname == '/' or pathname == '/dash-vanguard-report/overview':
         return overview
     elif pathname == '/dash-vanguard-report/price-performance':
         return pricePerformance
@@ -1211,7 +1199,7 @@ def display_page(pathname):
     elif pathname == '/dash-vanguard-report/full-view':
         return overview,pricePerformance,portfolioManagement,feesMins,distributions,newsReviews
     else:
-        return noPage
+        return overview
 
 
 # # # # # # # # #
@@ -1226,11 +1214,11 @@ external_css = ["https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normaliz
 for css in external_css:
     app.css.append_css({"external_url": css})
 
-external_js = ["https://code.jquery.com/jquery-3.2.1.min.js",
-               "https://codepen.io/bcd/pen/YaXojL.js"]
+# external_js = ["https://code.jquery.com/jquery-3.2.1.min.js",
+#                "https://codepen.io/bcd/pen/YaXojL.js"]
 
-for js in external_js:
-    app.scripts.append_script({"external_url": js})
+# for js in external_js:
+#     app.scripts.append_script({"external_url": js})
 
 
 if __name__ == '__main__':
