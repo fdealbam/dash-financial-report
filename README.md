@@ -1,4 +1,4 @@
-### Dash financial report
+### Dash Financial Report
 ###### multi-page, external_css, external_scripts, PDF      
 
 This is a demo of the [Dash](https://plot.ly/products/dash/) interactive Python framework developed by [Plotly](https://plot.ly/).
