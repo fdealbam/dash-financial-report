@@ -1,4 +1,4 @@
-### Dash Vanguard Report
+### Dash financial report
 ###### multi-page, external_css, external_scripts, PDF      
 
 This is a demo of the [Dash](https://plot.ly/products/dash/) interactive Python framework developed by [Plotly](https://plot.ly/).
@@ -15,12 +15,12 @@ For more information about the application structure, see our [Dash Deployment S
 
 You can clone or download this repo:   
 ```
-git clone https://github.com/plotly/dash-vanguard-report.git
+git clone https://github.com/plotly/dash-financial-report.git
 ```
 
 Then cd into the repo:   
 ```
-cd dash-vanguard-report
+cd dash-financial-report
 ```
 
 Now create and activate a virtualenv (noting the python runtime):   
@@ -46,4 +46,4 @@ Once the dependencies have been installed, run the application:
 python app.py
 ```
 
-Then visit http://127.0.0.1:8050/dash-vanguard-report
+Then visit http://127.0.0.1:8050/
