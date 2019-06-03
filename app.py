@@ -56,7 +56,7 @@ def get_header():
 
         html.Div([
             html.H5(
-                '500 Index Fund Investor Shares')
+                'Calibre Financial Index Fund Investor Shares')
         ], className="twelve columns padded")
 
     ], className="row gs-header gs-text-header")
@@ -109,12 +109,12 @@ overview = html.Div([  # page 1
 
                     html.P("\
                             As the industry’s first index fund for individual investors, \
-                            the 500 Index Fund is a low-cost way to gain diversified exposure \
+                            the Calibre Index Fund is a low-cost way to gain diversified exposure \
                             to the U.S. equity market. The fund offers exposure to 500 of the \
                             largest U.S. companies, which span many different industries and \
                             account for about three-fourths of the U.S. stock market’s value. \
                             The key risk for the fund is the volatility that comes with its full \
-                            exposure to the stock market. Because the 500 Index Fund is broadly \
+                            exposure to the stock market. Because the Calibre Index Fund is broadly \
                             diversified within the large-capitalization market, it may be \
                             considered a core equity holding in a portfolio."),
 
@@ -149,7 +149,7 @@ overview = html.Div([  # page 1
                                         "width": 2
                                       }
                                     },
-                                    name = "500 Index Fund"
+                                    name = "Calibre Index Fund"
                                 ),
                                 go.Bar(
                                     x = ["1 Year", "3 Year", "5 Year", "10 Year", "41 Year"],
@@ -224,7 +224,7 @@ overview = html.Div([  # page 1
                                     y = ["10000", "7500", "9000", "10000", "10500", "11000", "14000", "18000", "19000", "20500", "24000"],
                                     line = {"color": "rgb(53, 83, 255)"},
                                     mode = "lines",
-                                    name = "500 Index Fund Inv"
+                                    name = "Calibre Index Fund Inv"
                                 )
                             ],
                             'layout': go.Layout(
@@ -503,10 +503,10 @@ pricePerformance = html.Div([  # page 2
                             'data': [
                                 go.Scatter(
                                     x = df_graph['Date'],
-                                    y = df_graph['500 Index Fund'],
+                                    y = df_graph['Calibre Index Fund'],
                                     line = {"color": "rgb(53, 83, 255)"},
                                     mode = "lines",
-                                    name = "500 Index Fund"
+                                    name = "Calibre Index Fund"
                                 ),
                                 go.Scatter(
                                     x = df_graph['Date'],
@@ -873,7 +873,7 @@ portfolioManagement = html.Div([ # page 3
                 ], className="four columns"),
 
                 html.Div([
-                    html.P("500 Index Fund seeks to track the performance of\
+                    html.P("Calibre Index Fund seeks to track the performance of\
                      a benchmark index that measures the investment return of large-capitalization stocks."),
                     html.P("Learn more about this portfolio's investment strategy and policy.")
                 ], className="eight columns middle-aligned"),
